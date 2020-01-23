@@ -35,9 +35,6 @@ App = {
       App.contracts.DappTokenSale.setProvider(App.web3Provider);
       App.contracts.DappTokenSale.deployed().then(function(dappTokenSale) {
         console.log("Dapp Token Sale Address:", dappTokenSale.address);
-        //NEW: TEST
-        const data = dappTokenSale.methods.getData.call();
-        console.log("DATA: " + data);
       });
     }).done(function() {
       $.getJSON("DappToken.json", function(dappToken) {
@@ -98,13 +95,21 @@ App = {
       App.tokensSold = tokensSold.toNumber();
       $('.tokens-sold').html(App.tokensSold);
       $('.tokens-available').html(App.tokensAvailable);
-
       var progressPercent = (Math.ceil(App.tokensSold) / App.tokensAvailable) * 100;
       $('#progress').css('width', progressPercent + '%');
-
       // Load token contract
       App.contracts.DappToken.deployed().then(function(instance) {
         dappTokenInstance = instance;
+        
+        dappTokenInstance.balanceOf(App.account, (error, balance) => {
+          // Get decimals
+          dappTokenInstance.decimals((error, decimals) => {
+            // calculate a balance
+            balance = balance.div(10**decimals);
+            console.log(balance.toString());
+          });
+        });
+        
         return dappTokenInstance.balanceOf(App.account);
       }).then(function(balance) {
         $('.dapp-balance').html(balance.toNumber());
