@@ -33,7 +33,7 @@ App = {
         console.log("Dapp Token Sale Address:", dappTokenSale.address);
         
         const data = await dappTokenSale.methods.getData.call();
-        console.log(data);
+        console.log("DATA: "+data);
         
       });
     }).done(function() {
