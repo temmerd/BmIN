@@ -53,7 +53,7 @@ App = {
         fromBlock: 0,
         toBlock: 'latest',
       }).watch(function(error, event) {
-        console.log("event triggered", event);
+        console.log("debug: event triggered", event);
         App.render();
       })
     })
@@ -70,8 +70,6 @@ App = {
 
     loader.show();
     content.hide();
-    
-    console.log("Render");
 
     // Load account data
     web3.eth.getCoinbase(function(err, account) {
