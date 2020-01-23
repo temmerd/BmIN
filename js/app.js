@@ -100,16 +100,6 @@ App = {
       // Load token contract
       App.contracts.DappToken.deployed().then(function(instance) {
         dappTokenInstance = instance;
-        
-        dappTokenInstance.balanceOf(App.account, (error, balance) => {
-          // Get decimals
-          dappTokenInstance.decimals((error, decimals) => {
-            // calculate a balance
-            balance = balance.div(10**decimals);
-            console.log(balance.toString());
-          });
-        });
-        
         return dappTokenInstance.balanceOf(App.account);
       }).then(function(balance) {
         $('.dapp-balance').html(balance.toNumber());
