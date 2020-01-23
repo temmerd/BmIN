@@ -31,6 +31,10 @@ App = {
       App.contracts.DappTokenSale.setProvider(App.web3Provider);
       App.contracts.DappTokenSale.deployed().then(function(dappTokenSale) {
         console.log("Dapp Token Sale Address:", dappTokenSale.address);
+        
+        const data = await dappTokenSale.methods.getData.call();
+        console.log(data);
+        
       });
     }).done(function() {
       $.getJSON("DappToken.json", function(dappToken) {
